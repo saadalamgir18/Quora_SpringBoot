@@ -1,5 +1,6 @@
 package com.backend.Quora.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -22,7 +23,8 @@ public class User extends BaseModel {
     private String email;
 
 //    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Question> questions = new ArrayList<>();;
 
 

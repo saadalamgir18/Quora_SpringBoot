@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -23,7 +25,7 @@ public class UserController {
     @PostMapping("/users")
     public ResponseEntity<User> createUser(@RequestBody User user){
         User newUser= userService.save(user);
-        return ResponseEntity.ok().body(newUser);
+        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
 
     }
 
@@ -33,6 +35,16 @@ public class UserController {
         List<User> users = userService.findAll();
 
         return ResponseEntity.ok(users);
+    }
+    @GetMapping("/users/{userId}")
+    public ResponseEntity<?> getUserById(@PathVariable UUID userId){
+        System.out.println("hitting users");
+        Optional<User> user = userService.findById(userId);
+        if (user.isEmpty()){
+            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+        }
+
+        return ResponseEntity.ok(user);
     }
 
 

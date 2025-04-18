@@ -10,7 +10,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Component
-public class QuestionResponseDto {
+public class QuestionDto {
     private UUID id;
     private String title;
     private String body;
